@@ -41,6 +41,7 @@ function App() {
         <div>年齡</div>
         <div>居住地</div>
       </Stack>
+
       <DataSection></DataSection>
     </div>
   );

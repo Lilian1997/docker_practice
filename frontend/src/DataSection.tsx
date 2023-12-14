@@ -1,10 +1,15 @@
 import Stack from "@mui/material/Stack";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "./Context";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
-export const UserData = () => {
-  const { userData, setUserData } = useContext(Context);
+type UserDataProps = {
+  name: string;
+  age: number;
+  location: string;
+};
 
+export const UserData: React.FC<UserDataProps> = ({ name, age, location }) => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}
@@ -12,13 +17,44 @@ export const UserData = () => {
       useFlexGap
       flexWrap="wrap"
     >
-      <div>{userData.name}</div>
-      <div>{userData.age}</div>
-      <div>{userData.location}</div>
+      <div>{name}</div>
+      <div>{age}</div>
+      <div>{location}</div>
     </Stack>
   );
 };
 
 export const DataSection = () => {
-  return {};
+  const { allUserData, setAllUserData } = useContext(Context);
+
+  const fetchData = async () => {
+    let url = "http://localhost:2407/User";
+
+    await axios
+      .get(url)
+      .then(function (response: AxiosResponse) {
+        let getAllUserData = response.data.data;
+        setAllUserData(getAllUserData);
+      })
+      .catch(function (error: AxiosError) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
+
+  return (
+    <>
+      {allUserData.map((userData, index) => (
+        <UserData
+          key={index}
+          name={userData.name}
+          age={userData.age}
+          location={userData.location}
+        ></UserData>
+      ))}
+    </>
+  );
 };

@@ -24,7 +24,7 @@ export const Context = createContext<ContextType>({
   setInputValue: () => {},
   userData: { name: "", age: 1, location: "" },
   setUserData: () => {},
-  allUserData: [],
+  allUserData: [{ name: "", age: 1, location: "" }],
   setAllUserData: () => {},
 });
 
