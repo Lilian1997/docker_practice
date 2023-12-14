@@ -7,6 +7,7 @@ import CustomButton from "./CustomButton";
 import { useDecreButton } from "./useDecreButton";
 import { useIncreButton } from "./useIncreButton";
 import { useGetNewInputValue } from "./useGetNewInputValue";
+import { DataSection } from "./DataSection";
 
 function App() {
   const { total, inputValue } = useContext(Context);
@@ -29,6 +30,18 @@ function App() {
         <InputField value={inputValue} onChange={InputChangeHandler} />
         <CustomButton usage="increment" onClick={IncrementHandler} />
       </Stack>
+      <br />
+      <Stack
+        spacing={{ xs: 1, sm: 2 }}
+        direction="row"
+        useFlexGap
+        flexWrap="wrap"
+      >
+        <div>姓名</div>
+        <div>年齡</div>
+        <div>居住地</div>
+      </Stack>
+      <DataSection></DataSection>
     </div>
   );
 }
