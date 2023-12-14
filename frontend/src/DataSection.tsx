@@ -43,7 +43,7 @@ export const DataSection = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <>
