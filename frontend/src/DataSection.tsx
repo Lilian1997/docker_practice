@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect } from "react";
 import { Context } from "./Context";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { useFetchData } from "./useFetchData";
 
 type UserDataProps = {
   name: string;
@@ -24,41 +24,12 @@ export const UserData: React.FC<UserDataProps> = ({ name, age, location }) => {
   );
 };
 
-export const FetchData = () => {
-  // const { setAllUserData } = useContext(Context);
-
-  const fetchData = async () => {
-    let url = "http://localhost:2407/User";
-
-    await axios
-      .get(url)
-      .then(function (response: AxiosResponse) {
-        let getAllUserData = response.data.data;
-        // setAllUserData(getAllUserData);
-        return getAllUserData;
-      })
-      .catch(function (error: AxiosError) {
-        console.log(error);
-      });
-  };
-  return fetchData;
-};
-
 export const DataSection = () => {
-  const { allUserData, setAllUserData } = useContext(Context);
-  const fetchDataHandler = FetchData();
+  const { allUserData } = useContext(Context);
+  const fetchDataHandler = useFetchData();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let newData = await fetchDataHandler();
-        setAllUserData(newData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData(); // 調用內部的非同步函數
+    fetchDataHandler();
   }, []);
 
   return (
