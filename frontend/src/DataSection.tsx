@@ -24,8 +24,8 @@ export const UserData: React.FC<UserDataProps> = ({ name, age, location }) => {
   );
 };
 
-export const DataSection = () => {
-  const { allUserData, setAllUserData } = useContext(Context);
+export const FetchData = () => {
+  // const { setAllUserData } = useContext(Context);
 
   const fetchData = async () => {
     let url = "http://localhost:2407/User";
@@ -34,15 +34,31 @@ export const DataSection = () => {
       .get(url)
       .then(function (response: AxiosResponse) {
         let getAllUserData = response.data.data;
-        setAllUserData(getAllUserData);
+        // setAllUserData(getAllUserData);
+        return getAllUserData;
       })
       .catch(function (error: AxiosError) {
         console.log(error);
       });
   };
+  return fetchData;
+};
+
+export const DataSection = () => {
+  const { allUserData, setAllUserData } = useContext(Context);
+  const fetchDataHandler = FetchData();
 
   useEffect(() => {
-    fetchData();
+    const fetchData = async () => {
+      try {
+        let newData = await fetchDataHandler();
+        setAllUserData(newData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // 調用內部的非同步函數
   }, []);
 
   return (
