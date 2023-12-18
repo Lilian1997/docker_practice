@@ -11,8 +11,6 @@ type ContextType = {
   setTotal: React.Dispatch<React.SetStateAction<number>>;
   inputValue: number;
   setInputValue: React.Dispatch<React.SetStateAction<number>>;
-  // userData: UserData;
-  // setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   allUserData: UserData[];
   setAllUserData: React.Dispatch<React.SetStateAction<Array<UserData>>>;
 };
@@ -22,8 +20,6 @@ export const Context = createContext<ContextType>({
   setTotal: () => {},
   inputValue: 1,
   setInputValue: () => {},
-  // userData: { name: "", age: 1, location: "" },
-  // setUserData: () => {},
   allUserData: [{ name: "", age: 1, location: "" }],
   setAllUserData: () => {},
 });
@@ -39,13 +35,6 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
   // Input狀態
   const [inputValue, setInputValue] = useState(1);
 
-  // User
-  // const [userData, setUserData] = useState<UserData>({
-  //   name: "",
-  //   age: 1,
-  //   location: "",
-  // });
-
   //All Data
   const [allUserData, setAllUserData] = useState<UserData[]>([]);
 
@@ -56,8 +45,6 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
         setTotal,
         inputValue,
         setInputValue,
-        // userData,
-        // setUserData,
         allUserData,
         setAllUserData,
       }}
