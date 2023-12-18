@@ -3,10 +3,26 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
 import ContextProvider from "./Context";
+import nock from "nock";
+import axios from "axios";
 
 describe("App 測試", function () {
+  beforeEach(() => {
+    axios.defaults.adapter = "http";
+
+    const response = {
+      data: [{ name: "John", age: 25, location: "Taipei" }],
+    };
+
+    nock("http://localhost:2407").get("/User").reply(200, response);
+  });
+
   test("renders learn react link", () => {
-    render(<App />);
+    render(
+      <ContextProvider>
+        <App />
+      </ContextProvider>
+    );
     const linkElement = screen.getByText("Counter");
     expect(linkElement).toBeInTheDocument();
   });
