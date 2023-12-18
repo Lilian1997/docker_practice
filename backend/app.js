@@ -10,7 +10,7 @@ app.get("/", function (req, res) {
 });
 
 app.listen(2407, function () {
-  console.log("伺服器啟動中000" + new Date().toLocaleTimeString());
+  console.log("伺服器啟動中" + new Date().toLocaleTimeString());
 });
 
 var conn = mysql.createConnection({
