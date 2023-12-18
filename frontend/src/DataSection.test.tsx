@@ -25,8 +25,6 @@ describe("DataSection 測試", function () {
 
     nock("http://localhost:2407").get("/User").reply(200, response);
 
-    console.log(response);
-
     render(
       <ContextProvider>
         <DataSection />
