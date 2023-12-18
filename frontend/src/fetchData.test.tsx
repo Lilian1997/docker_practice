@@ -17,9 +17,6 @@ describe("fetchData 測試", function () {
 
     const getAllUserData = await fetchData("http://localhost:2407/User");
 
-    expect(getAllUserData).toEqual([
-      { name: "John", age: 25, location: "Taipei" },
-      { name: "Amy", age: 15, location: "Tainan" },
-    ]);
+    expect(getAllUserData).toEqual(response.data);
   });
 });
