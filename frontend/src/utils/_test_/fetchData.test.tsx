@@ -20,4 +20,25 @@ describe("fetchData 測試", function () {
 
     expect(getUserDataArray).toEqual(response.data);
   });
+
+  test("狀態碼 404", async () => {
+    nock(myURL.origin).get(myURL.pathname).reply(404);
+    await expect(fetchData(myURL.href)).rejects.toThrowError(
+      "Request failed with status code 404"
+    );
+  });
+
+  test("狀態碼 500", async () => {
+    nock(myURL.origin).get(myURL.pathname).reply(500);
+
+    await expect(fetchData(myURL.href)).rejects.toBeTruthy();
+  });
+
+  test("狀態碼 300", async () => {
+    nock(myURL.origin).get(myURL.pathname).reply(300);
+
+    await expect(fetchData(myURL.href)).rejects.toThrowError(
+      "Request failed with status code 300"
+    );
+  });
 });
