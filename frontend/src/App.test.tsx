@@ -5,16 +5,17 @@ import userEvent from "@testing-library/user-event";
 import ContextProvider from "./Context";
 import nock from "nock";
 import axios from "axios";
+import { URL } from "node:url";
 
 describe("App 測試", function () {
+  axios.defaults.adapter = "http";
+  const myURL = new URL("http://localhost:2407/User");
+  const response = {
+    data: [{ name: "John", age: 25, location: "Taipei" }],
+  };
+
   beforeEach(() => {
-    axios.defaults.adapter = "http";
-
-    const response = {
-      data: [{ name: "John", age: 25, location: "Taipei" }],
-    };
-
-    nock("http://localhost:2407").get("/User").reply(200, response);
+    nock(myURL.origin).get(myURL.pathname).reply(200, response);
   });
 
   test("renders learn react link", () => {

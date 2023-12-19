@@ -4,16 +4,18 @@ import { DataSection } from "./DataSection";
 import axios from "axios";
 import nock from "nock";
 import ContextProvider from "./Context";
+import { URL } from "node:url";
 
 describe("DataSection 測試", function () {
   axios.defaults.adapter = "http";
+  const myURL = new URL("http://localhost:2407/User");
 
   test("成功連接", async () => {
-    const scope = nock("http://localhost:2407")
-      .get("/User")
+    const scope = nock(myURL.origin)
+      .get(myURL.pathname)
       .reply(200, "test response");
 
-    await axios.get("http://localhost:2407/User");
+    await axios.get(myURL.href);
 
     scope.done();
   });
@@ -23,7 +25,7 @@ describe("DataSection 測試", function () {
       data: [{ name: "John", age: 25, location: "Taipei" }],
     };
 
-    nock("http://localhost:2407").get("/User").reply(200, response);
+    nock(myURL.origin).get(myURL.pathname).reply(200, response);
 
     await render(
       <ContextProvider>
