@@ -1,8 +1,8 @@
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect } from "react";
-import { Context } from "./Context";
-import { useFetchData } from "./useFetchData";
-import { fetchData } from "./fetchData";
+import { Context } from "../context/Context";
+import { useFetchData } from "../hooks/useFetchData";
+import { fetchData } from "../utils/fetchData";
 
 type UserDataProps = {
   name: string;
@@ -30,7 +30,6 @@ export const DataSection = () => {
   const fetchDataHandler = useFetchData();
 
   useEffect(() => {
-
     fetchDataHandler();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

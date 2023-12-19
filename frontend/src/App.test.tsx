@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
-import ContextProvider from "./Context";
+import ContextProvider from "./context/Context";
 import nock from "nock";
 import axios from "axios";
 import { URL } from "node:url";

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import CustomButton from "./CustomButton";
+import CustomButton from "../CustomButton";
 import userEvent from "@testing-library/user-event";
 
 const decrementHandler = jest.fn();

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { UserData } from "./Context";
+import { UserData } from "../context/Context";
 
 export const fetchData = async (url: string): Promise<UserData[]> => {
   try {

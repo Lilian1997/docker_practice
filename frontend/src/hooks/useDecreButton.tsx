@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Decrement } from "./CalculateSum";
-import { Context } from "./Context";
+import { Decrement } from "../utils/CalculateSum";
+import { Context } from "../context/Context";
 
 export const useDecreButton = () => {
   const { total, setTotal, inputValue, setInputValue } = useContext(Context);

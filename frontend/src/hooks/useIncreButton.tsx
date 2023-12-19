@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Increment } from "./CalculateSum";
-import { Context } from "./Context";
+import { Increment } from "../utils/CalculateSum";
+import { Context } from "../context/Context";
 
 export const useIncreButton = () => {
   const { total, setTotal, inputValue, setInputValue } = useContext(Context);

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Context } from "./Context";
-import { fetchData } from "./fetchData";
-import { UserData } from "./Context";
+import { Context } from "../context/Context";
+import { fetchData } from "../utils/fetchData";
+import { UserData } from "../context/Context";
 
 export const useFetchData = () => {
   const { setAllUserData } = useContext(Context);

@@ -1,4 +1,4 @@
-import { fetchData } from "./fetchData";
+import { fetchData } from "../fetchData";
 import axios from "axios";
 import nock from "nock";
 import { URL } from "node:url";

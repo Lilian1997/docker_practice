@@ -1,13 +1,13 @@
-import "./App.css";
-import InputField from "./InputField";
+import "./assets/App.css";
+import InputField from "./components/InputField";
 import Stack from "@mui/material/Stack";
-import { Context } from "./Context";
+import { Context } from "./context/Context";
 import { useContext } from "react";
-import CustomButton from "./CustomButton";
-import { useDecreButton } from "./useDecreButton";
-import { useIncreButton } from "./useIncreButton";
-import { useGetNewInputValue } from "./useGetNewInputValue";
-import { DataSection } from "./DataSection";
+import CustomButton from "./components/CustomButton";
+import { useDecreButton } from "./hooks/useDecreButton";
+import { useIncreButton } from "./hooks/useIncreButton";
+import { useGetNewInputValue } from "./hooks/useGetNewInputValue";
+import { DataSection } from "./components/DataSection";
 
 function App() {
   const { total, inputValue } = useContext(Context);

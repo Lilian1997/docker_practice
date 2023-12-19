@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { DataSection } from "./DataSection";
+import { DataSection } from "../DataSection";
 import axios from "axios";
 import nock from "nock";
-import ContextProvider from "./Context";
+import ContextProvider from "../../context/Context";
 import { URL } from "node:url";
 
 describe("DataSection 測試", function () {

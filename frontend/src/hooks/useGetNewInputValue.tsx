@@ -1,5 +1,5 @@
 import { useContext, ChangeEvent } from "react";
-import { Context } from "./Context";
+import { Context } from "../context/Context";
 
 export const useGetNewInputValue = () => {
   const { setInputValue } = useContext(Context);

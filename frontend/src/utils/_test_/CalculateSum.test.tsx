@@ -1,4 +1,4 @@
-import { Decrement, Increment } from "./CalculateSum";
+import { Decrement, Increment } from "../CalculateSum";
 
 test("Decrement 測試", () => {
   expect(Decrement(1, 1)).toBe(0);
