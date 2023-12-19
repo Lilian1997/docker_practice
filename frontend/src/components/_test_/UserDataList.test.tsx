@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { DataSection } from "../DataSection";
+import { UserDataList } from "../UserDataList";
 import axios from "axios";
 import nock from "nock";
 import ContextProvider from "../../context/Context";
@@ -29,7 +29,7 @@ describe("DataSection 測試", function () {
 
     await render(
       <ContextProvider>
-        <DataSection />
+        <UserDataList />
       </ContextProvider>
     );
 

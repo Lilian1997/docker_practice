@@ -16,8 +16,8 @@ describe("fetchData 測試", function () {
   test("取得多筆正確資料", async () => {
     nock(myURL.origin).get(myURL.pathname).reply(200, response);
 
-    const getAllUserData = await fetchData(myURL.href);
+    const getUserDataArray = await fetchData(myURL.href);
 
-    expect(getAllUserData).toEqual(response.data);
+    expect(getUserDataArray).toEqual(response.data);
   });
 });

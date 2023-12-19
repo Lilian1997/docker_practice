@@ -1,16 +1,13 @@
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect } from "react";
-import { Context } from "../context/Context";
+import { Context, UserDataContent } from "../context/Context";
 import { useFetchData } from "../hooks/useFetchData";
-import { fetchData } from "../utils/fetchData";
 
-type UserDataProps = {
-  name: string;
-  age: number;
-  location: string;
-};
-
-export const UserData: React.FC<UserDataProps> = ({ name, age, location }) => {
+export const UserData: React.FC<UserDataContent> = ({
+  name,
+  age,
+  location,
+}) => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}
@@ -25,8 +22,8 @@ export const UserData: React.FC<UserDataProps> = ({ name, age, location }) => {
   );
 };
 
-export const DataSection = () => {
-  const { allUserData } = useContext(Context);
+export const UserDataList = () => {
+  const { userDataArray } = useContext(Context);
   const fetchDataHandler = useFetchData();
 
   useEffect(() => {
@@ -36,7 +33,7 @@ export const DataSection = () => {
 
   return (
     <>
-      {allUserData.map((userData, index) => (
+      {userDataArray.map((userData, index) => (
         <UserData
           key={index}
           name={userData.name}

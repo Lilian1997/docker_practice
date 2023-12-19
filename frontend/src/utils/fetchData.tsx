@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
-import { UserData } from "../context/Context";
+import { UserDataContent } from "../context/Context";
 
-export const fetchData = async (url: string): Promise<UserData[]> => {
+export const fetchData = async (url: string): Promise<UserDataContent[]> => {
   try {
     const response: AxiosResponse = await axios.get(url);
-    const getAllUserData: UserData[] = response.data.data;
-    return getAllUserData;
+    const getUserDataArray: UserDataContent[] = response.data.data;
+    return getUserDataArray;
   } catch (error) {
     console.log(error);
     throw error;

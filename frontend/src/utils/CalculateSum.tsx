@@ -1,11 +1,10 @@
-export const Decrement = (Total: number, InputValue: number): number => {
-  let NewTotal;
-  NewTotal = Total - InputValue;
-  return NewTotal;
+export const decrement = (total: number, inputValue: number): number => {
+  let newTotal;
+  newTotal = total - inputValue;
+  return newTotal;
 };
-
-export const Increment = (Total: number, InputValue: number): number => {
-  let NewTotal;
-  NewTotal = Total + InputValue;
-  return NewTotal;
+export const increment = (total: number, inputValue: number): number => {
+  let newTotal;
+  newTotal = total + inputValue;
+  return newTotal;
 };

@@ -4,16 +4,15 @@ import Stack from "@mui/material/Stack";
 import { Context } from "./context/Context";
 import { useContext } from "react";
 import CustomButton from "./components/CustomButton";
-import { useDecreButton } from "./hooks/useDecreButton";
-import { useIncreButton } from "./hooks/useIncreButton";
+import { useDecreButton, useIncreButton } from "./hooks/useCalculateSum";
 import { useGetNewInputValue } from "./hooks/useGetNewInputValue";
-import { DataSection } from "./components/DataSection";
+import { UserDataList } from "./components/UserDataList";
 
 function App() {
   const { total, inputValue } = useContext(Context);
-  const IncrementHandler = useIncreButton();
-  const DecrementHandler = useDecreButton();
-  const InputChangeHandler = useGetNewInputValue();
+  const incrementHandler = useIncreButton();
+  const decrementHandler = useDecreButton();
+  const inputChangeHandler = useGetNewInputValue();
 
   return (
     <div className="App">
@@ -26,9 +25,9 @@ function App() {
         useFlexGap
         flexWrap="wrap"
       >
-        <CustomButton usage="decrement" onClick={DecrementHandler} />
-        <InputField value={inputValue} onChange={InputChangeHandler} />
-        <CustomButton usage="increment" onClick={IncrementHandler} />
+        <CustomButton usage="decrement" onClick={decrementHandler} />
+        <InputField value={inputValue} onChange={inputChangeHandler} />
+        <CustomButton usage="increment" onClick={incrementHandler} />
       </Stack>
       <br />
       <Stack
@@ -42,7 +41,7 @@ function App() {
         <div>居住地</div>
       </Stack>
 
-      <DataSection></DataSection>
+      <UserDataList></UserDataList>
     </div>
   );
 }

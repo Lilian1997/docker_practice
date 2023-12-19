@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-export type UserData = {
+export type UserDataContent = {
   name: string;
   age: number;
   location: string;
@@ -11,8 +11,10 @@ type ContextType = {
   setTotal: React.Dispatch<React.SetStateAction<number>>;
   inputValue: number;
   setInputValue: React.Dispatch<React.SetStateAction<number>>;
-  allUserData: UserData[];
-  setAllUserData: React.Dispatch<React.SetStateAction<Array<UserData>>>;
+  userDataArray: UserDataContent[];
+  setUserDataArray: React.Dispatch<
+    React.SetStateAction<Array<UserDataContent>>
+  >;
 };
 
 export const Context = createContext<ContextType>({
@@ -20,8 +22,8 @@ export const Context = createContext<ContextType>({
   setTotal: () => {},
   inputValue: 1,
   setInputValue: () => {},
-  allUserData: [{ name: "", age: 1, location: "" }],
-  setAllUserData: () => {},
+  userDataArray: [{ name: "", age: 1, location: "" }],
+  setUserDataArray: () => {},
 });
 
 type ContextProviderProps = {
@@ -36,7 +38,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
   const [inputValue, setInputValue] = useState(1);
 
   //All Data
-  const [allUserData, setAllUserData] = useState<UserData[]>([]);
+  const [userDataArray, setUserDataArray] = useState<UserDataContent[]>([]);
 
   return (
     <Context.Provider
@@ -45,8 +47,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
         setTotal,
         inputValue,
         setInputValue,
-        allUserData,
-        setAllUserData,
+        userDataArray,
+        setUserDataArray,
       }}
     >
       {children}
