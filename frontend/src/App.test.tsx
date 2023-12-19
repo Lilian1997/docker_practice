@@ -18,6 +18,10 @@ describe("App 測試", function () {
     nock(myURL.origin).get(myURL.pathname).reply(200, response);
   });
 
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   test("renders learn react link", () => {
     render(
       <ContextProvider>

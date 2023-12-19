@@ -10,6 +10,10 @@ describe("DataSection 測試", function () {
   axios.defaults.adapter = "http";
   const myURL = new URL("http://localhost:2407/User");
 
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   test("成功連接", async () => {
     const scope = nock(myURL.origin)
       .get(myURL.pathname)
