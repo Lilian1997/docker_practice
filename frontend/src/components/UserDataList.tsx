@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
-import { useContext, useEffect } from "react";
-import { Context, UserDataContent } from "../context/Context";
+import { UserDataContent } from "../context/Context";
 import { useFetchData } from "../hooks/useFetchData";
 
 export const UserData: React.FC<UserDataContent> = ({
@@ -23,13 +22,7 @@ export const UserData: React.FC<UserDataContent> = ({
 };
 
 export const UserDataList = () => {
-  const { userDataArray } = useContext(Context);
-  const fetchDataHandler = useFetchData();
-
-  useEffect(() => {
-    fetchDataHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { userDataArray } = useFetchData("http://localhost:2407/User");
 
   return (
     <>
