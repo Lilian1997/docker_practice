@@ -61,8 +61,16 @@ describe("fetchData 測試", function () {
     expect(getResult).toBe(300);
   });
 
+  // 寫這種就好了，只是要取得reject
   test("狀態碼 503", async () => {
     mockApi.reply(503);
     await expect(fetchData(myURL.href)).rejects.toThrow();
+  });
+
+  test("狀態碼 200 promise", () => {
+    mockApi.reply(200, response);
+    return fetchData(myURL.href).then((data) => {
+      expect(data).toEqual(response.data);
+    });
   });
 });
