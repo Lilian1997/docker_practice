@@ -18,7 +18,7 @@ function App() {
         <div>年齡</div>
         <div>居住地</div>
       </Stack>
-      {/* <UserDataList></UserDataList> */}
+      <UserDataList></UserDataList>
     </div>
   );
 }
