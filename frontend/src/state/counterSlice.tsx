@@ -1,28 +1,32 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { decrement, increment } from "../utils/calculateSum";
 
 interface CounterState {
-  value: number;
+  total: number;
+  inputValue: number;
 }
 
 const initialState: CounterState = {
-  value: 0,
+  total: 0,
+  inputValue: 1,
 };
 
 const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
     incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+      state.total = increment(state.total, action.payload);
+    },
+    decrementByAmount: (state, action: PayloadAction<number>) => {
+      state.total = decrement(state.total, action.payload);
+    },
+    setInputValue: (state, action: PayloadAction<number>) => {
+      state.inputValue = action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { incrementByAmount, decrementByAmount, setInputValue } =
+  counterSlice.actions;
 export default counterSlice.reducer;

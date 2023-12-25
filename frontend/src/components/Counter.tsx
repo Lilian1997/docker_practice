@@ -3,17 +3,27 @@ import { RootState } from "../state/store";
 import InputField from "./InputField";
 import CustomButton from "./CustomButton";
 import Stack from "@mui/material/Stack";
-import { useDecreButton, useIncreButton } from "../hooks/useCalculateSum";
-import { useGetNewInputValue } from "../hooks/useGetNewInputValue";
-import { decrement, incrementByAmount } from "../state/counterSlice";
+import {
+  decrementByAmount,
+  incrementByAmount,
+  setInputValue,
+} from "../state/counterSlice";
+import { ChangeEvent } from "react";
 
 const Counter = () => {
-  const total = useSelector((state: RootState) => state.counter.value);
+  const total = useSelector((state: RootState) => state.counter.total);
+  const inputValue = useSelector(
+    (state: RootState) => state.counter.inputValue
+  );
   const dispatch = useDispatch();
 
-  const incrementHandler = useIncreButton();
-  const decrementHandler = useDecreButton();
-  const inputChangeHandler = useGetNewInputValue();
+  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const getInputValue = isNaN(parseInt(e.target.value))
+      ? 0
+      : parseInt(e.target.value);
+
+    dispatch(setInputValue(getInputValue));
+  };
 
   return (
     <>
@@ -26,24 +36,17 @@ const Counter = () => {
         useFlexGap
         flexWrap="wrap"
       >
-        <CustomButton usage="decrement" onClick={() => dispatch(decrement())} />
         <CustomButton
           usage="decrement"
-          onClick={() => dispatch(incrementByAmount(10))}
+          onClick={() => dispatch(decrementByAmount(inputValue))}
         />
-        {/* <InputField value={inputValue} onChange={inputChangeHandler} /> */}
-        <CustomButton usage="increment" onClick={incrementHandler} />
-      </Stack>
-      <br />
-      <Stack
-        spacing={{ xs: 1, sm: 2 }}
-        direction="row"
-        useFlexGap
-        flexWrap="wrap"
-      >
-        <div>姓名</div>
-        <div>年齡</div>
-        <div>居住地</div>
+
+        <InputField value={inputValue} onChange={inputHandler} />
+
+        <CustomButton
+          usage="increment"
+          onClick={() => dispatch(incrementByAmount(inputValue))}
+        />
       </Stack>
     </>
   );
