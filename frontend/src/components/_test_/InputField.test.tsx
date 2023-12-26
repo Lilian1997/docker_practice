@@ -3,10 +3,13 @@ import InputField from "../InputField";
 import userEvent from "@testing-library/user-event";
 
 const inputHandler = jest.fn();
+const isNaNChecked = jest.fn();
 
 describe("InputField 測試", function () {
   test("InputField render", () => {
-    render(<InputField value={1} onChange={inputHandler} />);
+    render(
+      <InputField value={1} onChange={inputHandler} onBlur={isNaNChecked} />
+    );
     const Input = screen.getByRole("textbox");
     expect(Input).toBeInTheDocument();
   });
@@ -14,7 +17,9 @@ describe("InputField 測試", function () {
   test("input可以打字", async () => {
     const user = userEvent.setup();
 
-    render(<InputField value={1} onChange={inputHandler} />);
+    render(
+      <InputField value={1} onChange={inputHandler} onBlur={isNaNChecked} />
+    );
 
     const contentInput = screen.getByTestId("content-input");
 
