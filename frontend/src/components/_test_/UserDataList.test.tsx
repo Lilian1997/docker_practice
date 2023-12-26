@@ -3,8 +3,9 @@ import { render, screen } from "@testing-library/react";
 import { UserDataList } from "../UserDataList";
 import axios from "axios";
 import nock from "nock";
-import ContextProvider from "../../context/Context";
 import { URL } from "node:url";
+import { Provider } from "react-redux";
+import { store } from "../../state/store";
 
 describe("DataSection 測試", function () {
   axios.defaults.adapter = "http";
@@ -28,9 +29,9 @@ describe("DataSection 測試", function () {
     nock(myURL.origin).get(myURL.pathname).reply(200, response);
 
     await render(
-      <ContextProvider>
+      <Provider store={store}>
         <UserDataList />
-      </ContextProvider>
+      </Provider>
     );
 
     await screen.findByText("John");

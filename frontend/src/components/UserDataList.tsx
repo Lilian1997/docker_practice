@@ -19,12 +19,6 @@ export const UserData: React.FC<UserDataState> = ({ name, age, location }) => {
 
 export const UserDataList = () => {
   const { userDataArray } = useFetchData("http://localhost:2407/User");
-  // const dispatch = useDispatch<AppDispatch>();
-  // const userDataArray = useSelector((state: RootState) => state.userDataList);
-
-  // useEffect(() => {
-  //   dispatch(fetchUserData("http://localhost:2407/User"));
-  // }, []);
 
   return (
     <>

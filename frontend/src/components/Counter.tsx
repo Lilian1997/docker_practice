@@ -13,24 +13,6 @@ const Counter = () => {
     increButtonClicked,
   } = useCalculateSum();
 
-  // const total = useSelector((state: RootState) => state.counter.total);
-  // const inputValue = useSelector(
-  //   (state: RootState) => state.counter.inputValue
-  // );
-  // const dispatch = useDispatch();
-
-  // const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const getInputValue = parseInt(e.target.value);
-  //   dispatch(setInputValue(getInputValue));
-  // };
-
-  // const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
-  //   const inputValueIsNaN = isNaN(parseInt(e.target.value))
-  //     ? 0
-  //     : parseInt(e.target.value);
-  //   dispatch(setInputValue(inputValueIsNaN));
-  // };
-
   return (
     <>
       <h1>Counter</h1>
