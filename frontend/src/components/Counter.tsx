@@ -8,7 +8,7 @@ import {
   incrementByAmount,
   setInputValue,
 } from "../state/counterSlice";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FocusEvent } from "react";
 
 const Counter = () => {
   const total = useSelector((state: RootState) => state.counter.total);
@@ -18,11 +18,15 @@ const Counter = () => {
   const dispatch = useDispatch();
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const getInputValue = isNaN(parseInt(e.target.value))
+    const getInputValue = parseInt(e.target.value);
+    dispatch(setInputValue(getInputValue));
+  };
+
+  const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
+    const inputValueIsNaN = isNaN(parseInt(e.target.value))
       ? 0
       : parseInt(e.target.value);
-
-    dispatch(setInputValue(getInputValue));
+    dispatch(setInputValue(inputValueIsNaN));
   };
 
   return (
@@ -41,7 +45,11 @@ const Counter = () => {
           onClick={() => dispatch(decrementByAmount(inputValue))}
         />
 
-        <InputField value={inputValue} onChange={inputHandler} />
+        <InputField
+          value={inputValue}
+          onChange={inputHandler}
+          onBlur={isNaNChecked}
+        />
 
         <CustomButton
           usage="increment"

@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../utils/fetchData";
 
 interface UserDataState {
@@ -24,22 +24,9 @@ const userDataListSlice = createSlice({
       .addCase(fetchUserData.pending, () => {
         console.log("fetchUserData.pending");
       })
-      .addCase(
-        fetchUserData.fulfilled,
-        (
-          state,
-          action: PayloadAction<
-            [{ name: string; age: number; location: string }]
-          >
-        ) => {
-          if (action.payload.length > 0) {
-            const userData = action.payload[0];
-            state.name = userData.name;
-            state.age = userData.age;
-            state.location = userData.location;
-          }
-        }
-      );
+      .addCase(fetchUserData.fulfilled, (state, action) => {
+        return action.payload;
+      });
   },
 });
 
@@ -47,7 +34,7 @@ export const fetchUserData = createAsyncThunk(
   "userDataList/fetchUserData",
   async () => {
     const response = await fetchData("http://localhost:2407/User");
-    return response;
+    return response as UserDataState[];
   }
 );
 

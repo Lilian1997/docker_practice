@@ -1,12 +1,13 @@
 import TextField from "@mui/material/TextField";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FocusEvent } from "react";
 
 type inputType = {
   value: number;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 };
 
-const InputField = ({ value, onChange }: inputType) => {
+const InputField = ({ value, onChange, onBlur }: inputType) => {
   return (
     <>
       <TextField
@@ -17,6 +18,7 @@ const InputField = ({ value, onChange }: inputType) => {
         inputProps={{ "data-testid": "content-input" }}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </>
   );

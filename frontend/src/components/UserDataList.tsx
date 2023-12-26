@@ -3,6 +3,8 @@ import { UserDataContent } from "../context/Context";
 import { useFetchData } from "../hooks/useFetchData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
+import { fetchUserData } from "../state/userDataListSlice";
+import { useEffect } from "react";
 
 export const UserData: React.FC<UserDataContent> = ({
   name,
@@ -27,6 +29,10 @@ export const UserDataList = () => {
   // const { userDataArray } = useFetchData("http://localhost:2407/User");
   const dispatch = useDispatch<AppDispatch>();
   const userDataArray = useSelector((state: RootState) => state.userDataList);
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, []);
 
   return (
     <>
