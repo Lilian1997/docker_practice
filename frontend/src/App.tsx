@@ -5,7 +5,10 @@ import { Context } from "./context/Context";
 import { useContext } from "react";
 import CustomButton from "./components/CustomButton";
 import { useDecreButton, useIncreButton } from "./hooks/useCalculateSum";
-import { useGetNewInputValue } from "./hooks/useGetNewInputValue";
+import {
+  useGetNewInputValue,
+  useIsNaNChecked,
+} from "./hooks/useGetNewInputValue";
 import { UserDataList } from "./components/UserDataList";
 
 function App() {
@@ -13,6 +16,7 @@ function App() {
   const incrementHandler = useIncreButton();
   const decrementHandler = useDecreButton();
   const inputChangeHandler = useGetNewInputValue();
+  const isNaNChecked = useIsNaNChecked();
 
   return (
     <div className="App">
@@ -26,7 +30,11 @@ function App() {
         flexWrap="wrap"
       >
         <CustomButton usage="decrement" onClick={decrementHandler} />
-        <InputField value={inputValue} onChange={inputChangeHandler} />
+        <InputField
+          value={inputValue}
+          onChange={inputChangeHandler}
+          onBlur={isNaNChecked}
+        />
         <CustomButton usage="increment" onClick={incrementHandler} />
       </Stack>
       <br />
