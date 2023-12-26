@@ -17,14 +17,14 @@ export const useCalculateSum = () => {
   const dispatch = useDispatch();
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const getInputValue = parseInt(e.target.value);
-    dispatch(setInputValue(getInputValue));
+    const inputText = e.target.value;
+    const getInputValue = inputText === "" ? "" : parseInt(inputText);
+    dispatch(setInputValue(getInputValue as number));
   };
 
   const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
-    const inputValueIsNaN = isNaN(parseInt(e.target.value))
-      ? 0
-      : parseInt(e.target.value);
+    const inputText = e.target.value;
+    const inputValueIsNaN = inputText === "" ? 0 : parseInt(inputText);
     dispatch(setInputValue(inputValueIsNaN));
   };
 

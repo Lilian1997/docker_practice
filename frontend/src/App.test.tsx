@@ -7,6 +7,9 @@ import axios from "axios";
 import { URL } from "node:url";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import { configureStore } from "@reduxjs/toolkit";
+import userDataListReducer from "./state/userDataListSlice";
+import counterReducer from "./state/counterSlice";
 
 describe("App 測試", function () {
   axios.defaults.adapter = "http";
@@ -15,13 +18,22 @@ describe("App 測試", function () {
     data: [{ name: "John", age: 25, location: "Taipei" }],
   };
 
+  let Store: typeof store;
+
   beforeEach(() => {
+    Store = configureStore({
+      reducer: {
+        counter: counterReducer,
+        userDataList: userDataListReducer,
+      },
+    });
+
     nock(myURL.origin).get(myURL.pathname).reply(200, response);
   });
 
   test("renders learn react link", () => {
     render(
-      <Provider store={store}>
+      <Provider store={Store}>
         <App />
       </Provider>
     );
@@ -31,7 +43,7 @@ describe("App 測試", function () {
 
   test("點擊按鈕數字會加減", async () => {
     render(
-      <Provider store={store}>
+      <Provider store={Store}>
         <App />
       </Provider>
     );
@@ -54,7 +66,7 @@ describe("App 測試", function () {
 
   test("依輸入框的值加減", async () => {
     render(
-      <Provider store={store}>
+      <Provider store={Store}>
         <App />
       </Provider>
     );

@@ -26,6 +26,9 @@ const userDataListSlice = createSlice({
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         return action.payload;
+      })
+      .addCase(fetchUserData.rejected, (state, action) => {
+        console.error("fetchUserData.rejected", action.error);
       });
   },
 });
