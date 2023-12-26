@@ -1,27 +1,47 @@
-import { useContext } from "react";
-import { decrement, increment } from "../utils/calculateSum";
-import { Context } from "../context/Context";
+import { ChangeEvent, FocusEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import {
+  decrementByAmount,
+  incrementByAmount,
+  setInputValue,
+} from "../state/counterSlice";
 
-export const useDecreButton = () => {
-  const { total, setTotal, inputValue, setInputValue } = useContext(Context);
+export const useCalculateSum = () => {
+  const total = useSelector((state: RootState) => state.counter.total);
+
+  const inputValue = useSelector(
+    (state: RootState) => state.counter.inputValue
+  );
+
+  const dispatch = useDispatch();
+
+  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const getInputValue = parseInt(e.target.value);
+    dispatch(setInputValue(getInputValue));
+  };
+
+  const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
+    const inputValueIsNaN = isNaN(parseInt(e.target.value))
+      ? 0
+      : parseInt(e.target.value);
+    dispatch(setInputValue(inputValueIsNaN));
+  };
 
   const decreButtonClicked = () => {
-    let newTotal = decrement(total, inputValue || 0);
-    setTotal(newTotal);
-    setInputValue(1);
+    dispatch(decrementByAmount(inputValue));
   };
-
-  return decreButtonClicked;
-};
-
-export const useIncreButton = () => {
-  const { total, setTotal, inputValue, setInputValue } = useContext(Context);
 
   const increButtonClicked = () => {
-    let newTotal = increment(total, inputValue || 0);
-    setTotal(newTotal);
-    setInputValue(1);
+    dispatch(incrementByAmount(inputValue));
   };
 
-  return increButtonClicked;
+  return {
+    total,
+    inputValue,
+    inputHandler,
+    isNaNChecked,
+    decreButtonClicked,
+    increButtonClicked,
+  };
 };

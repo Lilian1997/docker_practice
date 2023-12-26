@@ -1,33 +1,35 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../state/store";
 import InputField from "./InputField";
 import CustomButton from "./CustomButton";
 import Stack from "@mui/material/Stack";
-import {
-  decrementByAmount,
-  incrementByAmount,
-  setInputValue,
-} from "../state/counterSlice";
-import { ChangeEvent, FocusEvent } from "react";
+import { useCalculateSum } from "../hooks/useCalculateSum";
 
 const Counter = () => {
-  const total = useSelector((state: RootState) => state.counter.total);
-  const inputValue = useSelector(
-    (state: RootState) => state.counter.inputValue
-  );
-  const dispatch = useDispatch();
+  const {
+    total,
+    inputValue,
+    inputHandler,
+    isNaNChecked,
+    decreButtonClicked,
+    increButtonClicked,
+  } = useCalculateSum();
 
-  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const getInputValue = parseInt(e.target.value);
-    dispatch(setInputValue(getInputValue));
-  };
+  // const total = useSelector((state: RootState) => state.counter.total);
+  // const inputValue = useSelector(
+  //   (state: RootState) => state.counter.inputValue
+  // );
+  // const dispatch = useDispatch();
 
-  const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
-    const inputValueIsNaN = isNaN(parseInt(e.target.value))
-      ? 0
-      : parseInt(e.target.value);
-    dispatch(setInputValue(inputValueIsNaN));
-  };
+  // const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const getInputValue = parseInt(e.target.value);
+  //   dispatch(setInputValue(getInputValue));
+  // };
+
+  // const isNaNChecked = (e: FocusEvent<HTMLInputElement>) => {
+  //   const inputValueIsNaN = isNaN(parseInt(e.target.value))
+  //     ? 0
+  //     : parseInt(e.target.value);
+  //   dispatch(setInputValue(inputValueIsNaN));
+  // };
 
   return (
     <>
@@ -40,10 +42,7 @@ const Counter = () => {
         useFlexGap
         flexWrap="wrap"
       >
-        <CustomButton
-          usage="decrement"
-          onClick={() => dispatch(decrementByAmount(inputValue))}
-        />
+        <CustomButton usage="decrement" onClick={decreButtonClicked} />
 
         <InputField
           value={inputValue}
@@ -51,10 +50,7 @@ const Counter = () => {
           onBlur={isNaNChecked}
         />
 
-        <CustomButton
-          usage="increment"
-          onClick={() => dispatch(incrementByAmount(inputValue))}
-        />
+        <CustomButton usage="increment" onClick={increButtonClicked} />
       </Stack>
     </>
   );

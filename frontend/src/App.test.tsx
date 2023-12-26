@@ -2,10 +2,11 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
-import ContextProvider from "./context/Context";
 import nock from "nock";
 import axios from "axios";
 import { URL } from "node:url";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
 describe("App 測試", function () {
   axios.defaults.adapter = "http";
@@ -20,9 +21,9 @@ describe("App 測試", function () {
 
   test("renders learn react link", () => {
     render(
-      <ContextProvider>
+      <Provider store={store}>
         <App />
-      </ContextProvider>
+      </Provider>
     );
     const linkElement = screen.getByText("Counter");
     expect(linkElement).toBeInTheDocument();
@@ -30,9 +31,9 @@ describe("App 測試", function () {
 
   test("點擊按鈕數字會加減", async () => {
     render(
-      <ContextProvider>
+      <Provider store={store}>
         <App />
-      </ContextProvider>
+      </Provider>
     );
 
     const Total = screen.getByTestId("total");
@@ -53,9 +54,9 @@ describe("App 測試", function () {
 
   test("依輸入框的值加減", async () => {
     render(
-      <ContextProvider>
+      <Provider store={store}>
         <App />
-      </ContextProvider>
+      </Provider>
     );
 
     const Total = screen.getByTestId("total");

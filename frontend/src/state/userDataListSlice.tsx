@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../utils/fetchData";
 
-interface UserDataState {
+export interface UserDataState {
   name: string;
   age: number;
   location: string;
@@ -32,8 +32,8 @@ const userDataListSlice = createSlice({
 
 export const fetchUserData = createAsyncThunk(
   "userDataList/fetchUserData",
-  async () => {
-    const response = await fetchData("http://localhost:2407/User");
+  async (url: string) => {
+    const response = await fetchData(url);
     return response as UserDataState[];
   }
 );

@@ -1,14 +1,14 @@
-import { useContext, useEffect } from "react";
-import { Context } from "../context/Context";
-import { fetchData } from "../utils/fetchData";
-import { UserDataContent } from "../context/Context";
+import { useEffect } from "react";
+import { AppDispatch, RootState } from "../state/store";
+import { fetchUserData } from "../state/userDataListSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useFetchData = (url: string) => {
-  const { userDataArray, setUserDataArray } = useContext(Context);
+  const dispatch = useDispatch<AppDispatch>();
+  const userDataArray = useSelector((state: RootState) => state.userDataList);
 
   const getUserDataArray = async () => {
-    let getAllUserDataDetail: UserDataContent[] = await fetchData(url);
-    setUserDataArray(getAllUserDataDetail);
+    dispatch(fetchUserData(url));
   };
 
   useEffect(() => {

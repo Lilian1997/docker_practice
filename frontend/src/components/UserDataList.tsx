@@ -1,16 +1,8 @@
 import Stack from "@mui/material/Stack";
-import { UserDataContent } from "../context/Context";
 import { useFetchData } from "../hooks/useFetchData";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../state/store";
-import { fetchUserData } from "../state/userDataListSlice";
-import { useEffect } from "react";
+import { UserDataState } from "../state/userDataListSlice";
 
-export const UserData: React.FC<UserDataContent> = ({
-  name,
-  age,
-  location,
-}) => {
+export const UserData: React.FC<UserDataState> = ({ name, age, location }) => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}
@@ -26,13 +18,13 @@ export const UserData: React.FC<UserDataContent> = ({
 };
 
 export const UserDataList = () => {
-  // const { userDataArray } = useFetchData("http://localhost:2407/User");
-  const dispatch = useDispatch<AppDispatch>();
-  const userDataArray = useSelector((state: RootState) => state.userDataList);
+  const { userDataArray } = useFetchData("http://localhost:2407/User");
+  // const dispatch = useDispatch<AppDispatch>();
+  // const userDataArray = useSelector((state: RootState) => state.userDataList);
 
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUserData("http://localhost:2407/User"));
+  // }, []);
 
   return (
     <>
