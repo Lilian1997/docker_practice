@@ -1,28 +1,27 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-// import CustomButton from "../CustomButton";
-import userEvent from "@testing-library/user-event";
+import { waitFor } from "@testing-library/react";
 import { useFetchData } from "../useFetchData";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../state/store";
+import { renderHook, act } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { setupStore } from "../../state/store";
 
-const decrementHandler = jest.fn();
+// 這個測試要做的事
+// DISPATCH有沒有去呼叫執行fetchData
+// 狀態有沒有確實被修改
 
-describe("useFetchData 測試", function () {
-  // const dispatch = useDispatch<AppDispatch>();
-  const userDataArray = useSelector((state: RootState) => state.userDataList);
+describe("useFetchData hook", () => {
+  test("觸發 dispatch fetchUserData", async () => {
+    const url = "http://localhost:2407/User";
+    const store = setupStore({});
+    const dispatchSpy = jest.spyOn(store, "dispatch");
 
-  test("初始狀態", () => {
-    expect(userDataArray.length).toBe(1);
-  });
-
-  test("CustomButton 被點擊會觸發函式", async () => {
-    render(<CustomButton usage="decrement" onClick={decrementHandler} />);
-
-    const user = userEvent.setup();
-
-    const DecreButton = screen.getByRole("button", { name: "DecreButton" });
-    await user.click(DecreButton);
-    expect(decrementHandler).toHaveBeenCalled();
+    const { result } = renderHook(() => useFetchData(url), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
+      initialProps: {
+        store,
+      },
+    });
+    await waitFor(() => result.current.userDataArray);
+    expect(dispatchSpy).toHaveBeenCalled();
   });
 });

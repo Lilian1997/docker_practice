@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import counterReducer from "./counterSlice";
 import userDataListReducer from "./userDataListSlice";
 
@@ -11,3 +11,15 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  userDataList: userDataListReducer,
+});
+
+export const setupStore = (preloadedState: any) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
